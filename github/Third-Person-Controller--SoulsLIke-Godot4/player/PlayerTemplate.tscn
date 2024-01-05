@@ -1,0 +1,175 @@
+[gd_scene load_steps=34 format=3 uid="uid://c75s2m6eic1vo"]
+
+[ext_resource type="Script" path="res://scripts/PlayerTemplate.gd" id="1_ufsfo"]
+[ext_resource type="Script" path="res://scripts/CameraTemplate.gd" id="2_6p7mb"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_83d0r"]
+radius = 0.296973
+height = 1.61267
+
+[sub_resource type="AnimationNodeAnimation" id="17"]
+animation = &"Attack2"
+
+[sub_resource type="AnimationNodeAnimation" id="18"]
+animation = &"Attack3"
+
+[sub_resource type="AnimationNodeAnimation" id="19"]
+animation = &"Attack3"
+
+[sub_resource type="AnimationNodeAnimation" id="20"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="21"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeAnimation" id="22"]
+animation = &"Roll"
+
+[sub_resource type="AnimationNodeAnimation" id="99"]
+animation = &"Attack3"
+
+[sub_resource type="AnimationNodeAnimation" id="23"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeAnimation" id="24"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="25"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="26"]
+xfade_time = 0.2
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="27"]
+xfade_time = 0.1
+advance_condition = &"IsWalking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="28"]
+xfade_time = 0.1
+advance_condition = &"IsRunning"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="31"]
+xfade_time = 0.2
+advance_condition = &"IsNotRunning"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="32"]
+xfade_time = 0.2
+advance_condition = &"IsNotWalking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="37"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="38"]
+xfade_time = 0.1
+switch_mode = 2
+advance_condition = &"IsOnFloor"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="39"]
+xfade_time = 0.2
+switch_mode = 2
+advance_condition = &"IsRunning"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="40"]
+xfade_time = 0.2
+switch_mode = 2
+advance_condition = &"IsNotMoving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="41"]
+xfade_time = 0.2
+switch_mode = 2
+advance_condition = &"IsOnFloor"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="42"]
+xfade_time = 0.1
+advance_condition = &"IsInAir"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="43"]
+xfade_time = 0.2
+advance_condition = &"IsOnFloor"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="44"]
+xfade_time = 0.1
+advance_condition = &"IsInAir"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="45"]
+xfade_time = 0.1
+advance_condition = &"IsInAir"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="46"]
+xfade_time = 0.1
+switch_mode = 2
+advance_condition = &"IsOnFloor"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="47"]
+xfade_time = 0.1
+switch_mode = 2
+advance_condition = &"IsOnFloor"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="100"]
+xfade_time = 0.5
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="101"]
+switch_mode = 2
+advance_condition = &"IsOnFloor"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u47nw"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_kmv6c"]
+states/Attack1/node = SubResource("17")
+states/Attack1/position = Vector2(359, -12)
+states/Attack2/node = SubResource("18")
+states/Attack2/position = Vector2(170, -12)
+states/BigAttack/node = SubResource("19")
+states/BigAttack/position = Vector2(560, -12)
+states/Idle/node = SubResource("20")
+states/Idle/position = Vector2(359, 213)
+states/Jump/node = SubResource("21")
+states/Jump/position = Vector2(560, 327)
+states/Roll/node = SubResource("22")
+states/Roll/position = Vector2(560, 131)
+states/RollAttack/node = SubResource("99")
+states/RollAttack/position = Vector2(560, 62)
+states/Run/node = SubResource("23")
+states/Run/position = Vector2(741, 213)
+states/Start/position = Vector2(255, 213)
+states/Walk/node = SubResource("24")
+states/Walk/position = Vector2(560, 213)
+transitions = ["Idle", "Attack1", SubResource("25"), "Attack1", "Attack2", SubResource("26"), "Idle", "Walk", SubResource("27"), "Walk", "Run", SubResource("28"), "Run", "Walk", SubResource("31"), "Walk", "Idle", SubResource("32"), "Run", "BigAttack", SubResource("37"), "BigAttack", "Idle", SubResource("38"), "Roll", "Run", SubResource("39"), "Roll", "Idle", SubResource("40"), "Roll", "Walk", SubResource("41"), "Walk", "Jump", SubResource("42"), "Jump", "Walk", SubResource("43"), "Run", "Jump", SubResource("44"), "Idle", "Jump", SubResource("45"), "Attack1", "Idle", SubResource("46"), "Attack2", "Idle", SubResource("47"), "Roll", "RollAttack", SubResource("100"), "RollAttack", "Idle", SubResource("101"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_u47nw")]
+graph_offset = Vector2(60.9967, -49.9216)
+
+[node name="PlayerTemplate" type="CharacterBody3D"]
+script = ExtResource("1_ufsfo")
+PlayerCharacterMesh = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.828374, 0)
+shape = SubResource("CapsuleShape3D_83d0r")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_motion_track = NodePath("Skeleton:mixamorigSpine1")
+tree_root = SubResource("AnimationNodeStateMachine_kmv6c")
+parameters/conditions/IsInAir = false
+parameters/conditions/IsNotMoving = false
+parameters/conditions/IsNotRunning = false
+parameters/conditions/IsNotWalking = false
+parameters/conditions/IsOnFloor = false
+parameters/conditions/IsRunning = false
+parameters/conditions/IsWalking = false
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="Camroot" type="Node3D" parent="."]
+script = ExtResource("2_6p7mb")
+
+[node name="h" type="Node3D" parent="Camroot"]
+
+[node name="v" type="SpringArm3D" parent="Camroot/h"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+spring_length = -3.0
+
+[node name="Camera3D" type="Camera3D" parent="Camroot/h/v"]
+transform = Transform3D(-1, 1.45794e-08, -8.61985e-08, 0, 0.985996, 0.166769, 8.74228e-08, 0.166769, -0.985996, 0, 0, 0)
+keep_aspect = 0
